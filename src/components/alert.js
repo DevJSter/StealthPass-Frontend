@@ -50,7 +50,7 @@ const TicketPurchaseDialog = ({ event, isOpen, onClose, onPurchase }) => {
   // Helper function to read token ID from AVALA contract
   const readOnAvala = async () => {
     const bprovider = new ethers.JsonRpcProvider(
-      "https://avalanche-fuji-c-chain-rpc.publicnode.com"
+      "​https://api.avax-test.network/ext/bc/C/rpc"
     );
     const avalaSepoliaEventContract = new ethers.Contract(
      AVALA_SEPOLIA_EVENT_CONTRACT,
@@ -69,7 +69,7 @@ const TicketPurchaseDialog = ({ event, isOpen, onClose, onPurchase }) => {
   // Construct signer from private key
   async function constructSigner(privateKey) {
     const provider = new ethers.JsonRpcProvider(
-      "https://avalanche-fuji-c-chain-rpc.publicnode.com"
+      "​https://api.avax-test.network/ext/bc/C/rpc"
     );
     return new ethers.Wallet(privateKey, provider);
   }
