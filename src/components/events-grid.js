@@ -159,7 +159,7 @@ export function EventsBentoGrid({
       // Prepare transaction parameters
       const txParams = {
         value: ethers.parseUnits("10", "wei"),
-        gasLimit: 1000000, // Using BigInt for gas limit
+        gasLimit: 2000000, // Using BigInt for gas limit
       };
 
       // Call purchaseToken function
