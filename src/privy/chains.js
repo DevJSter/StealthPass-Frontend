@@ -39,10 +39,10 @@ export const avalaNetwork = {
   },
   rpcUrls: {
     default: {
-      http: ["https://avalanche-fuji-c-chain-rpc.publicnode.com"],
+      http: [process.env.NEXT_PUBLIC_AVALA_RPC_URL],
     },
     public: {
-      http: ["https://avalanche-fuji-c-chain-rpc.publicnode.com"],
+      http: [process.env.NEXT_PUBLIC_AVALA_RPC_URL],
     },
   },
   blockExplorers: {
