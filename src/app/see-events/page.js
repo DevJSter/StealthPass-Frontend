@@ -9,6 +9,15 @@ const Page = () => {
   const { address, w0 } = useWalletContext();
   const [error, setError] = useState(null)
 
+  const switchChain = async () => {
+    try {
+      await w0?.switchChain(43113);
+    } catch (error) {
+      console.error("Failed to switch chain:", error);
+      setError("Failed to switch to the correct network");
+    }
+  };
+
   console.log(w0?.chainId)
   useEffect(() => {
     const switchChain = async () => {
@@ -26,7 +35,7 @@ const Page = () => {
       <div className="mb-20">
         <HeroHeader />
       </div>
-      <Button>Chain</Button>
+      <Button onClick={switchChain}>Chain</Button>
       <EventsBentoGrid userAddress={address} />
     </div>
   );
