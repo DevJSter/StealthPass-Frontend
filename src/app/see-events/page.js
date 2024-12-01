@@ -18,7 +18,7 @@ const Page = () => {
     }
   };
 
-  console.log(w0?.chainId)
+  // console.log(w0?.chainId)
   useEffect(() => {
     const switchChain = async () => {
       try {
@@ -35,7 +35,7 @@ const Page = () => {
       <div className="mb-20">
         <HeroHeader />
       </div>
-      <Button onClick={switchChain}>Chain</Button>
+      {/* <Button onClick={switchChain}>Chain</Button> */}
       <EventsBentoGrid userAddress={address} />
     </div>
   );
