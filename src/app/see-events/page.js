@@ -10,7 +10,7 @@ const Page = () => {
   useEffect(() => {
     const switchChain = async () => {
       try {
-        await w0?.switchChain(59141);
+        await w0?.switchChain(43113);
       } catch (error) {
         console.error("Failed to switch chain:", error);
         setError("Failed to switch to the correct network");

@@ -78,7 +78,7 @@ const TicketPurchaseDialog = ({ event, isOpen, onClose, onPurchase }) => {
   const domain = {
     name: "WalletOwnershipProof",
     version: "1",
-    chainId: 59141,
+    chainId: 43113,
     verifyingContract: "0x0000000000000000000000000000000000000000",
   };
 

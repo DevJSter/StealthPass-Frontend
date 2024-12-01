@@ -25,7 +25,7 @@ export default function VerifyPage() {
     const provider = new ethers.JsonRpcProvider("https://validator.rivest.inco.org");
     const contract = new ethers.Contract(INCO_ADDRESS, INCO_ABI, provider);
     const result = await contract.getDeterministicKey(
-      59141,
+      43113,
       AVALA_SEPOLIA_EVENT_CONTRACT,
       tokenId
     );
@@ -40,7 +40,7 @@ export default function VerifyPage() {
       const domain = {
         name: "WalletOwnershipProof",
         version: "1",
-        chainId: 59141,
+        chainId: 43113,
         verifyingContract: "0x0000000000000000000000000000000000000000",
       };
   
