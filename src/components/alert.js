@@ -21,8 +21,8 @@ import {
   CardContent,
 } from "@/components/ui/card";
 import {
-  BASE_SEPOLIA_ABI,
-  BASE_SEPOLIA_EVENT_CONTRACT,
+  AVALA_SEPOLIA_ABI,
+  AVALA_SEPOLIA_EVENT_CONTRACT,
   INCO_ABI,
   INCO_ADDRESS,
   DUMMYABI,
@@ -47,17 +47,17 @@ const TicketPurchaseDialog = ({ event, isOpen, onClose, onPurchase }) => {
   const [wallet, setWallet] = useState(null);
   const [signature, setSignature] = useState(null);
 
-  // Helper function to read token ID from BASE contract
-  const readOnBase = async () => {
+  // Helper function to read token ID from AVALA contract
+  const readOnAvala = async () => {
     const bprovider = new ethers.JsonRpcProvider(
-      "https://sepolia.base.org"
+      "https://avalanche-fuji-c-chain-rpc.publicnode.com"
     );
-    const baseSepoliaEventContract = new ethers.Contract(
-      BASE_SEPOLIA_EVENT_CONTRACT,
-      BASE_SEPOLIA_ABI,
+    const avalaSepoliaEventContract = new ethers.Contract(
+     AVALA_SEPOLIA_EVENT_CONTRACT,
+     AVALA_SEPOLIA_ABI,
       bprovider
     );
-    const tokenId = await baseSepoliaEventContract.tokenId();
+    const tokenId = await avalaSepoliaEventContract.tokenId();
     return tokenId;
   };
 
@@ -69,7 +69,7 @@ const TicketPurchaseDialog = ({ event, isOpen, onClose, onPurchase }) => {
   // Construct signer from private key
   async function constructSigner(privateKey) {
     const provider = new ethers.JsonRpcProvider(
-      "https://sepolia.base.org"
+      "https://avalanche-fuji-c-chain-rpc.publicnode.com"
     );
     return new ethers.Wallet(privateKey, provider);
   }
@@ -116,7 +116,7 @@ const TicketPurchaseDialog = ({ event, isOpen, onClose, onPurchase }) => {
 
       const fundingResult = await ensureFunding(
         address, // address to fund
-        "base", // network
+        "avala", // network
         "0.1", // required balance
         "0.1" // funding amount
       );
@@ -128,7 +128,7 @@ const TicketPurchaseDialog = ({ event, isOpen, onClose, onPurchase }) => {
 
       // Create contract instance
       const eventContract = new ethers.Contract(
-        BASE_SEPOLIA_EVENT_CONTRACT,
+        AVALA_SEPOLIA_EVENT_CONTRACT,
         DUMMYABI,
         signer // Make sure you have a valid signer instance
       );
@@ -220,7 +220,7 @@ const TicketPurchaseDialog = ({ event, isOpen, onClose, onPurchase }) => {
         const s = await signSignatureNonAnonUser();
         sign = s.signature;
       }
-      const fundingResult = await ensureFunding(address, "base", "0.1", "0.1");
+      const fundingResult = await ensureFunding(address, "avala", "0.1", "0.1");
 
       if (!fundingResult.success) {
         console.error("Funding failed:", fundingResult.message);
@@ -228,7 +228,7 @@ const TicketPurchaseDialog = ({ event, isOpen, onClose, onPurchase }) => {
       }
 
       isAnonymous ? await onPurchase(event, wallet) : handleBuyTicket(event);
-      const uniqueKey = await readOnBase();
+      const uniqueKey = await readOnAvala();
 
       console.log("sign", sign);
 

@@ -1,6 +1,6 @@
 export const chainsName = { 
   inco: "Inco",
-  baseSepolia: "Base Sepolia"
+  avalaSepolia: "AVALA"
 };
 
 export const incoNetwork = {
@@ -28,27 +28,27 @@ export const incoNetwork = {
   },
 };
 
-export const baseSepoliaNetwork = {
-  id: 84532,
-  network: "base-sepolia",
-  name: "Base Sepolia",
+export const avalaNetwork = {
+  id: 43113,
+  network: "avalanche-fuji",
+  name: "Avalanche Fuji",
   nativeCurrency: {
-    name: "Ethereum",
-    symbol: "ETH",
+    name: "Avalanche",
+    symbol: "AVAX",
     decimals: 18,
   },
   rpcUrls: {
     default: {
-      http: ["https://sepolia.base.org"],
+      http: ["https://avalanche-fuji-c-chain-rpc.publicnode.com"],
     },
     public: {
-      http: ["https://sepolia.base.org"],
+      http: ["https://avalanche-fuji-c-chain-rpc.publicnode.com"],
     },
   },
   blockExplorers: {
     default: {
-      name: "BaseScan",
-      url: "https://sepolia-explorer.base.org",
+      name: "SnowTrace",
+      url: "https://testnet.snowtrace.io",
     },
   },
   testnet: true,
@@ -56,5 +56,5 @@ export const baseSepoliaNetwork = {
 
 export const networks = {
   inco: incoNetwork,
-  baseSepolia: baseSepoliaNetwork,
+  avalaSepolia: avalaNetwork,
 };

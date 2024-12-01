@@ -1,4 +1,4 @@
-import { baseSepoliaNetwork, incoNetwork } from "./chains";
+import { avalaNetwork, incoNetwork } from "./chains";
 
 export const privyConfig = {
   appId: "cm2vpnu5606elij5dxqxknyhx",
@@ -10,8 +10,8 @@ export const privyConfig = {
       walletList: ["metamask", "detected_wallets", "rainbow"],
       theme: "dark",
     },
-    defaultChain: baseSepoliaNetwork,
-    supportedChains: [incoNetwork, baseSepoliaNetwork],
+    defaultChain: avalaNetwork,
+    supportedChains: [incoNetwork, avalaNetwork],
     embeddedWallets: {
       createOnLogin: "users-without-wallets",
     },

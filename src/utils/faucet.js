@@ -7,10 +7,10 @@ export const networks = {
     rpcUrl: process.env.NEXT_PUBLIC_INCO_RPC_URL,
     explorer: process.env.NEXT_PUBLIC_INCO_EXPLORER
   },
-  base: {
-    name: 'BASE',
-    rpcUrl: process.env.NEXT_PUBLIC_BASE_RPC_URL,
-    explorer: process.env.NEXT_PUBLIC_BASE_EXPLORER
+  avala: {
+    name: 'AVALA',
+    rpcUrl: process.env.NEXT_PUBLIC_AVALA_RPC_URL,
+    explorer: process.env.NEXT_PUBLIC_AVALA_EXPLORER
   }
 };
 

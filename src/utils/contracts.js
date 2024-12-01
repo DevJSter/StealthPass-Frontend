@@ -1,13 +1,13 @@
 
-export const BASE_SEPOLIA_MAILBOX =
+export const AVALA_SEPOLIA_MAILBOX =
   "0x4e9D72CEC8576fC12b41f25A344B1F5F41270E52";
-export const INCO_ADDRESS = "0xf14cd3457E87cCbdb8c4B4c72b637874F921f537";
-export const USDCADDRESS = "0xd6CA7dc92249e6CD18450EdeCFb312eEcaBF73C3";
-export const BASE_SEPOLIA_EVENT_CONTRACT =
-  "0x30e7dC00c645B6F45Bba89d957dc55e4db734b00";
+export const INCO_ADDRESS = "0x0e13C67Cd5d5ef5748094a909252c6dB1d9967b4";
+export const USDCADDRESS = "0x503c259Dd72e236f71576a980075CE6653A7aCE7";
+export const AVALA_SEPOLIA_EVENT_CONTRACT =
+  "0x7c3482CcAE5090e1C72a0407085d52e15f44974D";
 
 export const MAILBOXES = {
-  BASE_SEPOLIA: BASE_SEPOLIA_MAILBOX,
+  AVALA_SEPOLIA: AVALA_SEPOLIA_MAILBOX,
   INCO: INCO_ADDRESS,
 };
 
@@ -494,7 +494,7 @@ export const INCO_ABI = [
   },
 ];
 
-export const BASE_SEPOLIA_ABI = [
+export const AVALA_SEPOLIA_ABI = [
   {
     inputs: [
       {
@@ -1171,7 +1171,7 @@ export const DUMMYABI = [
   },
 ];
 
-export const USDC_BASE_SEPOLIA_ABI = [
+export const USDC_AVALA_SEPOLIA_ABI = [
   {
     inputs: [],
     stateMutability: "nonpayable",

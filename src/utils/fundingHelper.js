@@ -6,9 +6,9 @@ const NETWORK_CONFIG = {
     rpcUrl: process.env.NEXT_PUBLIC_INCO_RPC_URL,
     name: 'INCO'
   },
-  base: {
-    rpcUrl: process.env.NEXT_PUBLIC_BASE_RPC_URL,
-    name: 'BASE'
+  avala: {
+    rpcUrl: process.env.NEXT_PUBLIC_AVALA_RPC_URL,
+    name: 'AVALA'
   }
 };
 

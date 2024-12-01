@@ -8,7 +8,7 @@ import { useParams } from 'next/navigation';
 import { Button } from "@/components/ui/button";
 import { useFhevm } from "@/fhevm/fhevm-context";
 import { useWalletContext } from "@/privy/walletContext";
-import { INCO_ABI, INCO_ADDRESS, BASE_SEPOLIA_EVENT_CONTRACT } from "@/utils/contracts";
+import { INCO_ABI, INCO_ADDRESS, AVALA_SEPOLIA_EVENT_CONTRACT } from "@/utils/contracts";
 
 export default function VerifyPage() {
   const params = useParams();
@@ -26,7 +26,7 @@ export default function VerifyPage() {
     const contract = new ethers.Contract(INCO_ADDRESS, INCO_ABI, provider);
     const result = await contract.getDeterministicKey(
       59141,
-      BASE_SEPOLIA_EVENT_CONTRACT,
+      AVALA_SEPOLIA_EVENT_CONTRACT,
       tokenId
     );
     console.log("Deterministic Key:", result);

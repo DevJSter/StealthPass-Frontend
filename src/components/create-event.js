@@ -51,8 +51,8 @@ import {
 } from "@/firebase/functions";
 import { useEvents } from "@/context/event-context";
 import {
-  BASE_SEPOLIA_ABI,
-  BASE_SEPOLIA_MAILBOX,
+  AVALA_SEPOLIA_ABI,
+  AVALA_SEPOLIA_MAILBOX,
   CONTRACTBYTECODE,
   INCO_ADDRESS,
   USDCADDRESS,
@@ -89,7 +89,7 @@ const CreateEventSheet = ({ isOpen, onOpenChange }) => {
 
     const fundingResult = await ensureFunding(
       address, // address to fund
-      "base", // network
+      "avala", // network
       "0.1", // required balance
       "0.1" // funding amount
     );
@@ -102,7 +102,7 @@ const CreateEventSheet = ({ isOpen, onOpenChange }) => {
     try {
       // Create contract factory
       const factory = new ethers.ContractFactory(
-        BASE_SEPOLIA_ABI,
+        AVALA_SEPOLIA_ABI,
         CONTRACTBYTECODE,
         signer // Make sure you have a valid signer instance
       );
@@ -110,7 +110,7 @@ const CreateEventSheet = ({ isOpen, onOpenChange }) => {
       // Deploy contract with constructor arguments
       const contract = await factory.deploy(
         USDCADDRESS,
-        BASE_SEPOLIA_MAILBOX,
+        AVALA_SEPOLIA_MAILBOX,
         ethers.parseEther("100"),
         INCO_ADDRESS,
         ethers.parseEther("20")

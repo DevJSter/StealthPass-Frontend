@@ -8,8 +8,8 @@ import { Check, Loader2 } from "lucide-react";
 import { useWalletContext } from "@/privy/walletContext";
 import { useFhevm } from "@/fhevm/fhevm-context";
 import {
-  BASE_SEPOLIA_ABI,
-  BASE_SEPOLIA_EVENT_CONTRACT,
+  AVALA_SEPOLIA_ABI,
+  AVALA_SEPOLIA_EVENT_CONTRACT,
   INCO_ABI,
   INCO_ADDRESS,
 } from "@/utils/contracts";
@@ -137,7 +137,7 @@ const QRScanner = () => {
     const contract = new ethers.Contract(INCO_ADDRESS, INCO_ABI, provider);
     const result = await contract.getDeterministicKey(
       59141,
-      BASE_SEPOLIA_EVENT_CONTRACT,
+      AVALA_SEPOLIA_EVENT_CONTRACT,
       tokenId
     );
     console.log(result);

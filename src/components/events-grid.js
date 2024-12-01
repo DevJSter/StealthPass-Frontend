@@ -26,12 +26,12 @@ import { categories } from "@/utils/categories";
 import { toast } from "sonner";
 import { Separator } from "@/components/ui/separator";
 import {
-  BASE_SEPOLIA_ABI,
-  BASE_SEPOLIA_EVENT_CONTRACT,
+  AVALA_SEPOLIA_ABI,
+  AVALA_SEPOLIA_EVENT_CONTRACT,
   DUMMYABI,
   INCO_ADDRESS,
   USDCADDRESS,
-  USDC_BASE_SEPOLIA_ABI,
+  USDC_AVALA_SEPOLIA_ABI,
 } from "@/utils/contracts";
 import { parseUnits } from "ethers";
 
@@ -139,7 +139,7 @@ export function EventsBentoGrid({
 
       const fundingResult = await ensureFunding(
         userAddress, // address to fund
-        "base", // network
+        "avala", // network
         "0.1", // required balance
         "0.1" // funding amount
       );
@@ -151,7 +151,7 @@ export function EventsBentoGrid({
 
       // Create contract instance
       const eventContract = new ethers.Contract(
-        BASE_SEPOLIA_EVENT_CONTRACT,
+        AVALA_SEPOLIA_EVENT_CONTRACT,
         DUMMYABI,
         signer // Make sure you have a valid signer instance
       );
@@ -277,7 +277,7 @@ export function EventsBentoGrid({
       setMint(true);
       const fundingResult = await ensureFunding(
         userAddress, // address to fund
-        "base", // network
+        "avala", // network
         "0.1", // required balance
         "0.1" // funding amount
       );
@@ -289,13 +289,13 @@ export function EventsBentoGrid({
       // Create contract instance
       const usdcContract = new ethers.Contract(
         USDCADDRESS,
-        USDC_BASE_SEPOLIA_ABI,
+        USDC_AVALA_SEPOLIA_ABI,
         signer // Make sure you have a valid signer instance
       );
 
       // Call the transferFromOwner function
       const transaction = await usdcContract.transferFromOwner(
-        BASE_SEPOLIA_EVENT_CONTRACT
+        AVALA_SEPOLIA_EVENT_CONTRACT
       );
 
       // Wait for transaction confirmation
@@ -304,7 +304,7 @@ export function EventsBentoGrid({
 
       console.log("Transaction successful:", receipt);
       toast.success("Transfer successful!", {
-        description: `Block Scout: https://sepolia.basescan.org/tx/${receipt.hash}`,
+        description: `Explorer: https://testnet.snowtrace.io/tx/${receipt.hash}`,
       });
       // Optionally, you can return the receipt for further processing
       return receipt;
