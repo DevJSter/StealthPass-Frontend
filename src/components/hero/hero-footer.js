@@ -152,60 +152,65 @@ const HeroFooter = () => {
       </div>
 
       <motion.div
-        className="flex justify-between items-center pb-6 px-4 md:px-0"
+  className="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-0 pb-6 px-4 md:px-0"
+  initial="initial"
+  animate="animate"
+  variants={fadeInVariants}
+  transition={{ duration: 0.3 }}
+>
+  {/* Logo and Name - Always visible */}
+  <Link href="/" className="no-underline w-full md:w-auto">
+    <motion.div className="bg-white p-1.5 rounded-full px-2.5 pr-4 flex justify-center md:justify-start w-full">
+      <div className="flex items-center gap-2 md:gap-4">
+        <div className="bg-black w-7 md:w-9 h-7 md:h-9 rounded-full grid place-items-center p-1.5">
+          <Image
+            src="/logo1.svg"
+            width={24}
+            height={24}
+            alt="Hero Image"
+            className="md:w-8 md:h-8"
+          />
+        </div>
+        <p className="text-black font-medium text-sm md:text-base">StealthPass</p>
+      </div>
+    </motion.div>
+  </Link>
+
+  {/* Credits - Hidden on very small screens */}
+  <motion.div
+    className="hidden sm:block text-center text-gray-600 text-xs md:text-sm"
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    transition={{ delay: 0.2 }}
+  >
+    <p>Presenting you with ❤️ from Abhishek & Vivek.</p>
+  </motion.div>
+
+  {/* GitHub Link - Always visible */}
+  <motion.div
+    className="w-full md:w-auto"
+    whileHover={{ scale: 1.02 }}
+  >
+    <Link
+      href="https://github.com/eth-bankok-2024"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="no-underline text-black hover:text-gray-600 transition-colors"
+    >
+      <motion.div
+        className="bg-white p-1.5 rounded-full px-3 md:px-4 text-xs md:text-sm flex items-center justify-center md:justify-start"
+        variants={linkVariants}
         initial="initial"
-        animate="animate"
-        variants={fadeInVariants}
-        transition={{ duration: 0.3 }}
+        whileHover="hover"
       >
-        <Link href="/" className="no-underline">
-          <motion.div className="bg-white p-1.5 rounded-full px-2.5 pr-4">
-            <div className="flex items-center gap-2 md:gap-4">
-              <div className="bg-black w-7 md:w-9 h-7 md:h-9 rounded-full grid place-items-center p-1.5">
-                <Image
-                  src="/logo1.svg"
-                  width={24}
-                  height={24}
-                  alt="Hero Image"
-                  className="md:w-8 md:h-8"
-                />
-              </div>
-              <p className="text-black font-medium text-sm md:text-base">StealthPass</p>
-            </div>
-          </motion.div>
-        </Link>
-
-        <motion.div
-          className="text-center text-gray-600 text-xs md:text-sm"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2 }}
-        >
-          <p>Presenting you with ❤️ from Abhishek & Vivek.</p>
-        </motion.div>
-
-        <motion.div
-          className="bg-white p-1.5 rounded-full px-3 md:px-4 text-xs md:text-sm"
-          whileHover={{ scale: 1.02 }}
-        >
-          <Link
-            href="https://github.com/eth-bankok-2024"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="no-underline text-black hover:text-gray-600 transition-colors"
-          >
-            <motion.div
-              className="flex items-center gap-2"
-              variants={linkVariants}
-              initial="initial"
-              whileHover="hover"
-            >
-              <Github size={16} className="md:w-5 md:h-5" />
-              <span className="font-medium">GitHub</span>
-            </motion.div>
-          </Link>
-        </motion.div>
+        <div className="flex items-center gap-2">
+          <Github size={16} className="md:w-5 md:h-5" />
+          <span className="font-medium">GitHub</span>
+        </div>
       </motion.div>
+    </Link>
+  </motion.div>
+</motion.div>
 
       <VideoDialog />
     </div>
