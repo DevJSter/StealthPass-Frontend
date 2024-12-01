@@ -1,12 +1,15 @@
 "use client";
 import { EventsBentoGrid } from "@/components/events-grid";
 import HeroHeader from "@/components/hero/hero-header";
+import { Button } from "@/components/ui/button";
 import { useWalletContext } from "@/privy/walletContext";
 import React, { useEffect, useState } from "react";
 
 const Page = () => {
   const { address, w0 } = useWalletContext();
   const [error, setError] = useState(null)
+
+  console.log(w0?.chainId)
   useEffect(() => {
     const switchChain = async () => {
       try {
@@ -23,6 +26,7 @@ const Page = () => {
       <div className="mb-20">
         <HeroHeader />
       </div>
+      <Button>Chain</Button>
       <EventsBentoGrid userAddress={address} />
     </div>
   );
