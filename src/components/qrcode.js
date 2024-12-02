@@ -26,6 +26,7 @@ const QRScanner = () => {
   const { address, signer, w0 } = useWalletContext();
   const { instance: fhevmInstance } = useFhevm();
   const [tokenId, setTokenId] = useState(1);
+  const [error, setError] = useState(null)
 
   console.log(tokenId)
 

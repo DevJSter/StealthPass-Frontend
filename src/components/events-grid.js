@@ -519,11 +519,11 @@ export function EventsBentoGrid({
 
   return (
     <div>
-      <div className="max-w-7xl mx-auto md:auto-rows-[32rem] flex justify-end md:mb-8 mb-2">
+      {/* <div className="max-w-7xl mx-auto md:auto-rows-[32rem] flex justify-end md:mb-8 mb-2">
         <Button disabled={mint} variant='ghost'  onClick={handleclick}>
           Mint USDC Tokens
         </Button>
-      </div>
+      </div> */}
       <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[32rem]">
         {eventItems.map((item, i) => (
           <BentoGridItem

@@ -11,6 +11,7 @@ const poppins = Poppins({
 });
 
 export const metadata = {
+  manifest: "/manifest.json",
   title: "StealthPass.",
   description: "Eth Global",
 };

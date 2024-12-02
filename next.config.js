@@ -1,8 +1,9 @@
 /** @type {import('next').NextConfig} */
+const withPWA = require('@ducanh2912/next-pwa').default
 
 const NEXT_PUBLIC_MAILER_URI = process.env.NEXT_PUBLIC_MAILER_URI;
 
-module.exports = {
+const nextConfig = {
   webpack: (config) => {
     config.resolve.fallback = {
       ...config.resolve.fallback,
@@ -10,7 +11,6 @@ module.exports = {
     };
     return config;
   },
-
   async rewrites() {
     return [
       {
@@ -20,3 +20,15 @@ module.exports = {
     ];
   },
 };
+
+module.exports = withPWA({
+  dest: "public",
+  cacheOnFrontEndNav: true,
+  aggressiveFrontEndNavCaching: true,
+  reloadOnOnline: true,
+  swcMinify: true,
+  // disable: process.env.NODE_ENV === "development",
+  workboxOptions: {
+    disableDevLogs: true,
+  },
+})(nextConfig);
