@@ -356,7 +356,7 @@ const TicketPurchaseDialog = ({ event, isOpen, onClose, onPurchase }) => {
               <AlertDialogHeader>
                 <AlertDialogTitle>Generate Your Ticket Keys</AlertDialogTitle>
                 <AlertDialogDescription>
-                  First, we'll generate your unique keys for this ticket
+                  First, we&apos;ll generate your unique keys for this ticket
                 </AlertDialogDescription>
               </AlertDialogHeader>
             )}
@@ -367,7 +367,7 @@ const TicketPurchaseDialog = ({ event, isOpen, onClose, onPurchase }) => {
                   <Shield className="w-12 h-12 text-primary" />
                 </div>
                 <p className="text-base text-muted-foreground max-w-sm mx-auto">
-                  We'll generate secure keys for your anonymous ticket purchase. Keep these safe!
+                  We&apos;ll generate secure keys for your anonymous ticket purchase. Keep these safe!
                 </p>
               </div>
             </div>
@@ -554,12 +554,12 @@ const TicketPurchaseDialog = ({ event, isOpen, onClose, onPurchase }) => {
 
           <div className="flex-1 flex flex-col justify-center text-center py-6">
             <p className="text-base text-muted-foreground">
-              We've sent your ticket details to:<br />
+              We&apos;ve sent your ticket details to:<br />
               <span className="font-medium text-foreground">{email}</span>
             </p>
             {isAnonymous && (
               <p className="mt-4 text-sm text-muted-foreground">
-                Don't forget to save your keys in a secure location!
+                Don&apos;t forget to save your keys in a secure location!
               </p>
             )}
           </div>
