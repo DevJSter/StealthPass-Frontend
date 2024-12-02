@@ -65,7 +65,7 @@ const HeroFooter = () => {
            
                 <iframe
                   className="absolute inset-0 w-full h-full"
-                 src="https://www.youtube.com/embed/pYKAngWoyVw?si=VKBcRkDe6B8rkW44"
+                 src="https://www.loom.com/embed/af94aa5d2be4496b965fba08e965c2e4?sid=250ffa91-6b2d-4f41-b92c-ef460abf5125"
                   title="Protocol Demo"
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -98,7 +98,7 @@ const HeroFooter = () => {
           <div className="relative pt-[56.25%]">
             <iframe
               className="absolute top-0 left-0 w-full h-full"
-             src="https://www.youtube.com/embed/pYKAngWoyVw?si=VKBcRkDe6B8rkW44"
+             src="https://www.loom.com/embed/af94aa5d2be4496b965fba08e965c2e4?sid=250ffa91-6b2d-4f41-b92c-ef460abf5125"
               title="Protocol Demo"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
