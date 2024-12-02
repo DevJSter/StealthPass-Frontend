@@ -31,8 +31,8 @@ const Page = () => {
     switchChain();
   }, [w0]);
   return (
-    <div className="min-h-screen p-8 bg-[#F3F3F3]">
-      <div className="mb-20">
+    <div className="min-h-screen md:p-8 p-4 bg-[#F3F3F3]">
+      <div className="md:mb-20">
         <HeroHeader />
       </div>
       {/* <Button onClick={switchChain}>Chain</Button> */}

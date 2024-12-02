@@ -340,43 +340,56 @@ export function EventsBentoGrid({
     );
   }
 
-  const EventCard = ({ event }) => {
+  const EventCard = ({ event, mintingFunction, mint }) => {
     const category = categories.find((cat) => cat.id === event.category);
     const eventDate = fromUnixTime(event.date.seconds);
     const isLiked = isEventLiked(event.id);
     const [isPurchaseDialogOpen, setIsPurchaseDialogOpen] = useState(false);
-
+  
     const handleTicketDialog = (event) => {
       setIsPurchaseDialogOpen(true);
     };
-
+  
     return (
       <motion.div
         initial="initial"
         whileHover="animate"
-        className="relative w-full h-full rounded-xl overflow-hidden bg-white dark:bg-gray-900 group"
+        className="relative w-full h-full rounded-xl overflow-hidden dark:bg-gray-900 group  transition-shadow duration-200"
       >
-        {/* Top Image Section - Removed price tag */}
+        {/* Image Section - Kept at 45% */}
         <div className="relative h-[45%] overflow-hidden">
           <img
             src={event.image}
             alt={event.title}
             className="w-full h-full object-cover group-hover:scale-105 transition-all duration-500"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-
-          {/* Top Badges - Same as before */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+  
+          {/* Top Actions Row */}
           <div className="absolute top-4 left-4 right-4 flex justify-between items-start">
-            <Badge className={cn("backdrop-blur-md bg-white/10")}>
-              {category?.icon}
-              <span className="ml-1">{category?.name}</span>
-            </Badge>
+            <div className="flex gap-2">
+              <Badge 
+                className="backdrop-blur-md bg-white/10 hover:bg-white/20 transition-colors"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  mintingFunction();
+                }}
+                disabled={mint}
+              >
+                <Coins className="w-4 h-4 mr-1" />
+                Mint USDC
+              </Badge>
+              <Badge className={cn("backdrop-blur-md bg-white/10")}>
+                {category?.icon}
+                <span className="ml-1">{category?.name}</span>
+              </Badge>
+            </div>
             <div className="flex gap-2">
               <Button
                 size="icon"
                 variant="ghost"
                 className={cn(
-                  "rounded-full w-8 h-8 backdrop-blur-md hover:bg-white/20 text-white z-50",
+                  "rounded-full w-8 h-8 backdrop-blur-md hover:bg-white/20 text-white",
                   isLiked ? "bg-red-500/20" : "bg-white/10"
                 )}
                 onClick={(e) => {
@@ -404,50 +417,49 @@ export function EventsBentoGrid({
               </Button>
             </div>
           </div>
-        </div>
-
-        {/* Content Section - Modified to include price */}
-        <div className="h-[55%] px-6 pt-8 flex flex-col">
-          {/* Event Title and Price Row */}
-          <div className="flex items-start justify-between gap-4 mb-2">
-            <h3 className="text-xl font-bold line-clamp-1">{event.title}</h3>
-            <Badge variant="secondary" className="px-3 py-1 text-lg font-bold">
+  
+          {/* Price Badge */}
+          <div className="absolute bottom-4 right-4">
+            <Badge variant="secondary" className="px-3 py-1.5 text-lg font-bold backdrop-blur-md bg-white/90 dark:bg-gray-900/90">
               ${event.price}
-              {/* $100 */}
             </Badge>
           </div>
-
-          {/* Quick Info */}
-          <div className="flex items-center gap-3 text-muted-foreground mb-4">
-            <div className="flex items-center gap-1">
-              <Clock className="w-4 h-4" />
-              <span className="text-sm">{event.duration}min</span>
+        </div>
+  
+        {/* Content Section - Kept at 55% */}
+        <div className="h-[55%] p-6 flex flex-col">
+          {/* Title */}
+          <h3 className="text-xl font-bold mb-4 line-clamp-1">{event.title}</h3>
+  
+          {/* Event Details */}
+          <div className="space-y-3 mb-6">
+            <div className="flex items-center gap-4 text-muted-foreground">
+              <div className="flex items-center gap-1">
+                <Clock className="w-4 h-4" />
+                <span className="text-sm">{event.duration}min</span>
+              </div>
+              <Separator orientation="vertical" className="h-4" />
+              <div className="flex items-center gap-1">
+                <Users className="w-4 h-4" />
+                <span className="text-sm">{event.maxParticipants} spots</span>
+              </div>
             </div>
-            <Separator orientation="vertical" className="h-4" />
-            <div className="flex items-center gap-1">
-              <Users className="w-4 h-4" />
-              <span className="text-sm">{event.maxParticipants} spots</span>
+  
+            <div className="flex items-center gap-2 text-muted-foreground">
+              <Calendar className="w-4 h-4 flex-shrink-0" />
+              <span className="text-sm">{format(eventDate, "EEEE, MMMM d")} • {event.time}</span>
+            </div>
+  
+            <div className="flex items-center gap-2 text-muted-foreground">
+              <MapPin className="w-4 h-4 flex-shrink-0" />
+              <span className="text-sm truncate">{event.location}</span>
             </div>
           </div>
-
-          {/* DateTime and Location */}
-          <div className="grid grid-cols-1 gap-2 mb-4 text-sm">
-            <div className="flex items-center gap-2 text-muted-foreground">
-              <Calendar className="w-4 h-4" />
-              <span>{format(eventDate, "EEEE, MMMM d")}</span>
-              <span>•</span>
-              <span>{event.time}</span>
-            </div>
-            <div className="flex items-center gap-2 text-muted-foreground">
-              <MapPin className="w-4 h-4" />
-              <span className="truncate">{event.location}</span>
-            </div>
-          </div>
-
-          {/* Host Info and Buy Button */}
+  
+          {/* Bottom Row - Host Info and Action Button */}
           <div className="mt-auto flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <Avatar className="h-8 w-8 ring-2 ring-background">
+            <div className="flex items-center gap-3">
+              <Avatar className="h-9 w-9 ring-2 ring-background">
                 <AvatarImage
                   src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${event.creatorAddress}`}
                 />
@@ -458,14 +470,13 @@ export function EventsBentoGrid({
               <div className="flex flex-col">
                 <span className="text-xs text-muted-foreground">Hosted by</span>
                 <span className="text-sm font-medium truncate">
-                  {event.creatorAddress.slice(0, 6)}...
+                  {event.creatorAddress.slice(0, 4)}...
                   {event.creatorAddress.slice(-4)}
                 </span>
               </div>
             </div>
-
+  
             <Button
-              size="sm"
               className="group"
               onClick={(e) => {
                 e.stopPropagation();
@@ -477,14 +488,8 @@ export function EventsBentoGrid({
             </Button>
           </div>
         </div>
-
-        <TicketPurchaseDialog
-          event={event}
-          isOpen={isPurchaseDialogOpen}
-          onClose={() => setIsPurchaseDialogOpen(false)}
-          onPurchase={handleBuyTicket}
-        />
-        {/* Floating Animation Elements - Same as before */}
+  
+        {/* Background Animation */}
         <motion.div
           className="absolute -right-4 -top-4 w-24 h-24 blur-3xl bg-primary/20 rounded-full"
           animate={{
@@ -496,18 +501,25 @@ export function EventsBentoGrid({
             repeat: Infinity,
           }}
         />
+  
+        <TicketPurchaseDialog
+          event={event}
+          isOpen={isPurchaseDialogOpen}
+          onClose={() => setIsPurchaseDialogOpen(false)}
+          onPurchase={handleBuyTicket}
+        />
       </motion.div>
     );
   };
 
   const eventItems = allEvents.map((event) => ({
-    header: <EventCard event={event} />,
+    header: <EventCard event={event} mintingFunction={handleclick} mint={mint} />,
     className: event === allEvents[0] ? "md:col-span-2" : "md:col-span-1",
   }));
 
   return (
     <div>
-      <div className="max-w-7xl mx-auto md:auto-rows-[32rem] flex justify-end mb-8">
+      <div className="max-w-7xl mx-auto md:auto-rows-[32rem] flex justify-end md:mb-8 mb-2">
         <Button disabled={mint} variant='ghost'  onClick={handleclick}>
           Mint USDC Tokens
         </Button>

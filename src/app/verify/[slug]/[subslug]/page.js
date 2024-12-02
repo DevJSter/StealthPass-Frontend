@@ -3,12 +3,13 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { ethers } from "ethers";
-import { Check, Loader2 } from "lucide-react";
+import { Check, Loader2, Key, Clipboard, User } from "lucide-react";
 import { useParams } from 'next/navigation';
 import { Button } from "@/components/ui/button";
 import { useFhevm } from "@/fhevm/fhevm-context";
 import { useWalletContext } from "@/privy/walletContext";
 import { INCO_ABI, INCO_ADDRESS, AVALA_SEPOLIA_EVENT_CONTRACT } from "@/utils/contracts";
+import HeroHeader from "@/components/hero/hero-header";
 
 export default function VerifyPage() {
   const params = useParams();
@@ -174,117 +175,93 @@ export default function VerifyPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 relative flex items-center justify-center p-4">
-      <motion.div
-        className="absolute inset-0 bg-gradient-to-br from-blue-50 to-purple-50"
-        animate={{
-          opacity: [0.5, 0.8, 0.5],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "linear",
-        }}
-      />
-
-      <div className="bg-white/90 backdrop-blur-sm rounded-lg border border-gray-200 p-4 w-full max-w-md shadow-sm relative">
-        <h1 className="text-xl font-bold text-gray-900 mb-4 text-center">
-          Verify Access
-        </h1>
-
-        <div className="space-y-2">
-          {/* <div className="bg-white rounded p-2 border border-gray-100">
-            <div className="text-xs text-gray-600 mb-1">Connected Wallet</div>
-            <div
-              className="text-gray-900 font-mono text-xs break-all cursor-pointer hover:bg-gray-100 p-1 rounded"
-              onClick={() => copyToClipboard(address)}
-            >
-              {address ? `${address}` : 'Not connected'}
+    <div className="min-h-screen bg-white">
+      <HeroHeader />
+      <div className="container mx-auto px-4 py-8">
+        <div className="max-w-2xl mx-auto">
+          {/* Main Content Box */}
+          <div className="bg-white rounded-2xl shadow-sm">
+            <div className="flex items-center gap-2 mb-6">
+              <Key className="w-6 h-6 text-black" />
+              <h2 className="text-xl font-medium text-black">Verify Access</h2>
             </div>
-          </div> */}
 
-          <div className="bg-white rounded p-2 border border-gray-100">
-            <div className="text-xs text-gray-600 mb-1">Signature</div>
-            <div
-              className="text-gray-900 font-mono text-xs break-all cursor-pointer hover:bg-gray-100 p-1 rounded"
-              onClick={() => copyToClipboard(params.slug)}
-            >
-              {params.slug}
+            <div className="space-y-4">
+              {/* Signature Box */}
+              <div className="bg-white rounded-xl p-6 border border-gray-200">
+                <div className="flex items-center gap-2 mb-4">
+                  <Clipboard className="w-5 h-5 text-black" />
+                  <h3 className="text-sm font-medium text-black">Signature</h3>
+                </div>
+                <div
+                  onClick={() => copyToClipboard(params.slug)}
+                  className="font-mono text-xs text-gray-600 break-all cursor-pointer hover:bg-gray-50 p-3 rounded-lg transition-colors"
+                >
+                  {params.slug}
+                </div>
+              </div>
+
+              {/* Recovered Address Box */}
+              <div className="bg-white rounded-xl p-6 border border-gray-200">
+                <div className="flex items-center gap-2 mb-4">
+                  <User className="w-5 h-5 text-black" />
+                  <h3 className="text-sm font-medium text-black">Recovered Address</h3>
+                </div>
+                {isRecoveringAddress ? (
+                  <div className="flex items-center justify-center p-4">
+                    <Loader2 className="w-5 h-5 animate-spin text-gray-600" />
+                  </div>
+                ) : (
+                  <div
+                    onClick={() => copyToClipboard(recoveredAddress)}
+                    className="font-mono text-xs text-gray-600 break-all cursor-pointer hover:bg-gray-50 p-3 rounded-lg transition-colors"
+                  >
+                    {recoveredAddress}
+                  </div>
+                )}
+              </div>
+
+              {/* Error Message */}
+              {error && (
+                <div className="bg-red-50 text-red-900 rounded-xl p-4 border border-red-100">
+                  <div className="text-sm">{error}</div>
+                </div>
+              )}
             </div>
           </div>
+        </div>
+      </div>
 
-          <div className="bg-white rounded p-2 border border-gray-100">
-            <div className="text-xs text-gray-600 mb-1">
-              Recovered Address
-            </div>
-            {isRecoveringAddress ? (
-              <div className="flex items-center justify-center p-2">
-                <Loader2 className="w-4 h-4 animate-spin text-gray-600" />
-              </div>
-            ) : (
-              <div
-                className="text-gray-900 font-mono text-xs break-all cursor-pointer hover:bg-gray-100 p-1 rounded"
-                onClick={() => copyToClipboard(recoveredAddress)}
-              >
-                {recoveredAddress}
-              </div>
-            )}
-          </div>
-
-          {error && (
-            <div className="bg-red-50 text-red-900 rounded p-2 border border-red-100">
-              <div className="text-xs">{error}</div>
-            </div>
-          )}
-
+      {/* Fixed Verify Button */}
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 z-10">
+        <div className="max-w-2xl mx-auto">
           <Button
             onClick={verifyAddress}
             disabled={isVerifying || isRecoveringAddress}
-            className={`w-full relative ${
+            className={`w-full h-12 relative rounded-xl ${
               verificationSuccess
                 ? "bg-green-500 hover:bg-green-600"
-                : "bg-black hover:bg-gray-800"
-            } text-white transition-colors duration-300`}
+                : "bg-black hover:bg-black/90"
+            } text-white transition-all duration-300`}
           >
             <div className="absolute inset-0 flex items-center justify-center">
               {verificationSuccess && (
                 <motion.div
                   initial={false}
-                  animate={{
-                    opacity: verificationSuccess ? 1 : 0,
-                    scale: verificationSuccess ? 1 : 0.5,
-                  }}
-                  className="flex items-center gap-3"
-                  transition={{ duration: 0.2 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="flex items-center gap-2"
                 >
-                  <Check className="w-5 h-5" /> <p>Verified!</p>
+                  <Check className="w-5 h-5" />
+                  <span>Verified!</span>
                 </motion.div>
               )}
               
               {!verificationSuccess && isVerifying && (
-                <motion.div
-                  initial={false}
-                  animate={{
-                    opacity: 1,
-                    scale: 1,
-                  }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <Loader2 className="w-5 h-5 animate-spin" />
-                </motion.div>
+                <Loader2 className="w-5 h-5 animate-spin" />
               )}
 
               {!isVerifying && !verificationSuccess && (
-                <motion.span
-                  initial={false}
-                  animate={{
-                    opacity: 1,
-                    scale: 1,
-                  }}
-                  transition={{ duration: 0.2 }}
-                >
-                  Verify
-                </motion.span>
+                <span>Verify Address</span>
               )}
             </div>
           </Button>

@@ -35,6 +35,7 @@ import { useFhevm } from "@/fhevm/fhevm-context";
 import { toHexString } from "@/fhevm/fhe-functions";
 import { toast } from "sonner";
 
+
 const TicketPurchaseDialog = ({ event, isOpen, onClose, onPurchase }) => {
   const [step, setStep] = useState(0);
   const [isAnonymous, setIsAnonymous] = useState(false);
