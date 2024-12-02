@@ -183,7 +183,7 @@ const HeroFooter = () => {
     animate={{ opacity: 1 }}
     transition={{ delay: 0.2 }}
   >
-    <p>Presenting you with ❤️ from Abhishek & Vivek.</p>
+    <p>Presenting you with ❤️ from Swayam & Vivek.</p>
   </motion.div>
 
   {/* GitHub Link - Always visible */}
