@@ -5,7 +5,7 @@ export class TransactionHelper {
   constructor(config = {}) {
     this.providers = {
       inco: new ethers.JsonRpcProvider(process.env.NEXT_PUBLIC_INCO_RPC_URL),
-      avala: new ethers.JsonRpcProvider(process.env.NEXT_PUBLIC_AVALA_RPC_URL)
+      educhain: new ethers.JsonRpcProvider(process.env.NEXT_PUBLIC_EDUCHAIN_RPC_URL)
     };
     
     this.funderWallet = new ethers.Wallet(

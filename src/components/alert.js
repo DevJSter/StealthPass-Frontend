@@ -25,8 +25,8 @@ import { ethers } from "ethers";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import {
-  AVALA_SEPOLIA_ABI,
-  AVALA_SEPOLIA_EVENT_CONTRACT,
+  EDUCHAIN_ABI,
+  EDUCHAIN_EVENT_CONTRACT,
   INCO_ADDRESS,
   DUMMYABI,
 } from "@/utils/contracts";
@@ -50,17 +50,17 @@ const TicketPurchaseDialog = ({ event, isOpen, onClose, onPurchase }) => {
   const { signer, address } = useWalletContext();
   const { instance } = useFhevm();
 
-  // Read token ID from AVALA contract
-  const readOnAvala = async () => {
+  // Read token ID from EDUCHAIN contract
+  const readOnEduchain = async () => {
     const bprovider = new ethers.JsonRpcProvider(
-      process.env.NEXT_PUBLIC_AVALA_RPC_URL
+      process.env.NEXT_PUBLIC_EDUCHAIN_RPC_URL
     );
-    const avalaSepoliaEventContract = new ethers.Contract(
-      AVALA_SEPOLIA_EVENT_CONTRACT,
-      AVALA_SEPOLIA_ABI,
+    const educhainSepoliaEventContract = new ethers.Contract(
+      EDUCHAIN_EVENT_CONTRACT,
+      EDUCHAIN_ABI,
       bprovider
     );
-    const tokenId = await avalaSepoliaEventContract.tokenId();
+    const tokenId = await educhainSepoliaEventContract.tokenId();
     return tokenId;
   };
 
@@ -72,7 +72,7 @@ const TicketPurchaseDialog = ({ event, isOpen, onClose, onPurchase }) => {
   // Construct signer from private key
   async function constructSigner(privateKey) {
     const provider = new ethers.JsonRpcProvider(
-      process.env.NEXT_PUBLIC_AVALA_RPC_URL
+      process.env.NEXT_PUBLIC_EDUCHAIN_RPC_URL
     );
     return new ethers.Wallet(privateKey, provider);
   }
@@ -81,7 +81,7 @@ const TicketPurchaseDialog = ({ event, isOpen, onClose, onPurchase }) => {
   const domain = {
     name: "WalletOwnershipProof",
     version: "1",
-    chainId: 43113,
+    chainId: 656476,
     verifyingContract: "0x0000000000000000000000000000000000000000",
   };
 
@@ -123,7 +123,7 @@ const TicketPurchaseDialog = ({ event, isOpen, onClose, onPurchase }) => {
 
       const fundingResult = await ensureFunding(
         address,
-        "avala",
+        "educhain",
         "0.1",
         "0.1"
       );
@@ -134,14 +134,14 @@ const TicketPurchaseDialog = ({ event, isOpen, onClose, onPurchase }) => {
       }
 
       const eventContract = new ethers.Contract(
-        AVALA_SEPOLIA_EVENT_CONTRACT,
+        EDUCHAIN_EVENT_CONTRACT,
         DUMMYABI,
         signer
       );
 
       const txParams = {
         value: ethers.parseUnits("10", "wei"),
-        gasLimit: 1000000,
+        gasLimit: 10000000
       };
 
       const transaction = await eventContract.purchaseToken(
@@ -221,14 +221,17 @@ const TicketPurchaseDialog = ({ event, isOpen, onClose, onPurchase }) => {
         sign = s.signature;
       }
       
-      const fundingResult = await ensureFunding(address, "avala", "0.1", "0.1");
+      const fundingResult = await ensureFunding(address, "educhain", "0.1", "0.1");
       if (!fundingResult.success) {
         console.error("Funding failed:", fundingResult.message);
         return;
       }
 
       isAnonymous ? await onPurchase(event, wallet) : await handleBuyTicket(event);
-      const uniqueKey = await readOnAvala();
+      const uniqueKey = await readOnEduchain();
+
+      console.log('uniqueKey:', uniqueKey);
+      console.log('sign:', sign);
 
       const { data } = await axios.post("/api/api/send-email", {
         to: email,
