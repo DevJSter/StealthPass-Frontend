@@ -8,8 +8,8 @@ import { Check, Loader2, QrCode, Clipboard, User } from "lucide-react";
 import { useWalletContext } from "@/privy/walletContext";
 import { useFhevm } from "@/fhevm/fhevm-context";
 import {
-  AVALA_SEPOLIA_ABI,
-  AVALA_SEPOLIA_EVENT_CONTRACT,
+  EDUCHAIN_ABI,
+  EDUCHAIN_EVENT_CONTRACT,
   INCO_ABI,
   INCO_ADDRESS,
 } from "@/utils/contracts";
@@ -138,8 +138,8 @@ const QRScanner = () => {
     );
     const contract = new ethers.Contract(INCO_ADDRESS, INCO_ABI, provider);
     const result = await contract.getDeterministicKey(
-      43113,
-      AVALA_SEPOLIA_EVENT_CONTRACT,
+      656476,
+      EDUCHAIN_EVENT_CONTRACT,
       tokenId
     );
     console.log(result);
@@ -153,7 +153,7 @@ const QRScanner = () => {
       const domain = {
         name: "WalletOwnershipProof",
         version: "1",
-        chainId: 43113,
+        chainId: 656476,
         verifyingContract: "0x0000000000000000000000000000000000000000",
       };
   

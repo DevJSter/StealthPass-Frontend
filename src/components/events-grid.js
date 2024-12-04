@@ -26,12 +26,12 @@ import { categories } from "@/utils/categories";
 import { toast } from "sonner";
 import { Separator } from "@/components/ui/separator";
 import {
-  AVALA_SEPOLIA_ABI,
-  AVALA_SEPOLIA_EVENT_CONTRACT,
+  EDUCHAIN_ABI,
+  EDUCHAIN_EVENT_CONTRACT,
   DUMMYABI,
   INCO_ADDRESS,
   USDCADDRESS,
-  USDC_AVALA_SEPOLIA_ABI,
+  USDC_EDUCHAIN_ABI,
 } from "@/utils/contracts";
 import { parseUnits } from "ethers";
 
@@ -42,6 +42,7 @@ import { useWalletContext } from "@/privy/walletContext";
 import TicketPurchaseDialog from "./alert";
 import { TransactionHelper } from "@/utils/txhelper";
 import { ensureFunding } from "@/utils/fundingHelper";
+import axios from "axios";
 
 const STORAGE_KEY = "likedEvents";
 
@@ -139,7 +140,7 @@ export function EventsBentoGrid({
 
       const fundingResult = await ensureFunding(
         userAddress, // address to fund
-        "avala", // network
+        "educhain", // network
         "0.1", // required balance
         "0.1" // funding amount
       );
@@ -151,21 +152,33 @@ export function EventsBentoGrid({
 
       // Create contract instance
       const eventContract = new ethers.Contract(
-        AVALA_SEPOLIA_EVENT_CONTRACT,
+        EDUCHAIN_EVENT_CONTRACT,
         DUMMYABI,
         signer // Make sure you have a valid signer instance
       );
 
+      const hashOfProof = await eventContract.returnByte32Hash(inputProof);
+
+      // make a server call here which sends the bytes32 unique handle and bytes inputProof 
+      try {
+        const response = await axios.post('/api/contract/interact', {
+          inputProof: inputProof
+        });
+        console.log(response);
+      } catch (error) {
+        console.log(error);
+      }
       // Prepare transaction parameters
       const txParams = {
-        value: ethers.parseUnits("10", "wei"),
-        gasLimit: 1000000, // Using BigInt for gas limit
+        value: ethers.parseUnits("10", "wei")
       };
+
+      console.log('here I am')
 
       // Call purchaseToken function
       const transaction = await eventContract.purchaseToken(
         encryptedInput.handles[0],
-        inputProof,
+        hashOfProof,
         1,
         txParams
       );
@@ -277,7 +290,7 @@ export function EventsBentoGrid({
       setMint(true);
       const fundingResult = await ensureFunding(
         userAddress, // address to fund
-        "avala", // network
+        "educhain", // network
         "0.1", // required balance
         "0.1" // funding amount
       );
@@ -289,13 +302,13 @@ export function EventsBentoGrid({
       // Create contract instance
       const usdcContract = new ethers.Contract(
         USDCADDRESS,
-        USDC_AVALA_SEPOLIA_ABI,
+        USDC_EDUCHAIN_ABI,
         signer // Make sure you have a valid signer instance
       );
 
       // Call the transferFromOwner function
       const transaction = await usdcContract.transferFromOwner(
-        AVALA_SEPOLIA_EVENT_CONTRACT
+        EDUCHAIN_EVENT_CONTRACT
       );
 
       // Wait for transaction confirmation

@@ -7,22 +7,13 @@ import React, { useEffect, useState } from "react";
 
 const Page = () => {
   const { address, w0 } = useWalletContext();
-  const [error, setError] = useState(null)
-
-  const switchChain = async () => {
-    try {
-      await w0?.switchChain(43113);
-    } catch (error) {
-      console.error("Failed to switch chain:", error);
-      setError("Failed to switch to the correct network");
-    }
-  };
+  const [error, setError] = useState(null);
 
   // console.log(w0?.chainId)
   useEffect(() => {
     const switchChain = async () => {
       try {
-        await w0?.switchChain(43113);
+        await w0?.switchChain(656476);
       } catch (error) {
         console.error("Failed to switch chain:", error);
         setError("Failed to switch to the correct network");

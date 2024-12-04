@@ -8,7 +8,7 @@ import { useParams } from 'next/navigation';
 import { Button } from "@/components/ui/button";
 import { useFhevm } from "@/fhevm/fhevm-context";
 import { useWalletContext } from "@/privy/walletContext";
-import { INCO_ABI, INCO_ADDRESS, AVALA_SEPOLIA_EVENT_CONTRACT } from "@/utils/contracts";
+import { INCO_ABI, INCO_ADDRESS, EDUCHAIN_EVENT_CONTRACT } from "@/utils/contracts";
 import HeroHeader from "@/components/hero/hero-header";
 
 export default function VerifyPage() {
@@ -26,8 +26,8 @@ export default function VerifyPage() {
     const provider = new ethers.JsonRpcProvider("https://validator.rivest.inco.org");
     const contract = new ethers.Contract(INCO_ADDRESS, INCO_ABI, provider);
     const result = await contract.getDeterministicKey(
-      43113,
-      AVALA_SEPOLIA_EVENT_CONTRACT,
+      656476,
+      EDUCHAIN_EVENT_CONTRACT,
       tokenId
     );
     console.log("Deterministic Key:", result);
@@ -41,7 +41,7 @@ export default function VerifyPage() {
       const domain = {
         name: "WalletOwnershipProof",
         version: "1",
-        chainId: 43113,
+        chainId: 656476,
         verifyingContract: "0x0000000000000000000000000000000000000000",
       };
   

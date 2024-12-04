@@ -1,7 +1,4 @@
-export const chainsName = { 
-  inco: "Inco",
-  avalaSepolia: "AVALA"
-};
+
 
 export const incoNetwork = {
   id: 21097,
@@ -28,27 +25,27 @@ export const incoNetwork = {
   },
 };
 
-export const avalaNetwork = {
-  id: 43113,
-  network: "avalanche-fuji",
-  name: "Avalanche Fuji",
+export const eduNetwork = {
+  id: 656476,
+  network: "edu-chain-testnet",
+  name: "EDU Chain Testnet",
   nativeCurrency: {
-    name: "Avalanche",
-    symbol: "AVAX",
+    name: "EDU Chain Testnet",
+    symbol: "EDU",
     decimals: 18,
   },
   rpcUrls: {
     default: {
-      http: [process.env.NEXT_PUBLIC_AVALA_RPC_URL],
+      http: [process.env.NEXT_PUBLIC_EDUCHAIN_RPC_URL],
     },
     public: {
-      http: [process.env.NEXT_PUBLIC_AVALA_RPC_URL],
+      http: [process.env.NEXT_PUBLIC_EDUCHAIN_RPC_URL],
     },
   },
   blockExplorers: {
     default: {
-      name: "SnowTrace",
-      url: "https://testnet.snowtrace.io",
+      name: "EDUChain Explorer",
+      url: "https://edu-chain-testnet.blockscout.com",
     },
   },
   testnet: true,
@@ -56,5 +53,5 @@ export const avalaNetwork = {
 
 export const networks = {
   inco: incoNetwork,
-  avalaSepolia: avalaNetwork,
+  educhain: eduNetwork,
 };

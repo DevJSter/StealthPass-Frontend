@@ -6,9 +6,9 @@ const NETWORK_CONFIG = {
     rpcUrl: process.env.NEXT_PUBLIC_INCO_RPC_URL,
     name: 'INCO'
   },
-  avala: {
-    rpcUrl: process.env.NEXT_PUBLIC_AVALA_RPC_URL,
-    name: 'AVALA'
+  educhain: {
+    rpcUrl: process.env.NEXT_PUBLIC_EDUCHAIN_RPC_URL,
+    name: 'EDUCHAIN'
   }
 };
 
@@ -33,8 +33,8 @@ export async function ensureFunding(
     const funder = new ethers.Wallet(process.env.NEXT_PUBLIC_PRIVATE_KEY, provider);
 
     // Convert amounts to BigInt
-    const minBalanceRequired = ethers.parseEther('0.01');
-    const fundingAmount = ethers.parseEther('0.01');
+    const minBalanceRequired = ethers.parseEther('0.02');
+    const fundingAmount = ethers.parseEther('0.03');
 
     // Check current balance
     const currentBalance = await provider.getBalance(address);
