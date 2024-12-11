@@ -51,8 +51,8 @@ import {
 } from "@/firebase/functions";
 import { useEvents } from "@/context/event-context";
 import {
-  EDUCHAIN_ABI,
-  EDUCHAIN_MAILBOX,
+  MANTLE_ABI,
+  MANTLE_MAILBOX,
   CONTRACTBYTECODE,
   INCO_ADDRESS,
   USDCADDRESS,
@@ -89,7 +89,7 @@ const CreateEventSheet = ({ isOpen, onOpenChange }) => {
 
     const fundingResult = await ensureFunding(
       address, // address to fund
-      "educhain", // network
+      "mantle", // network
       "0.1", // required balance
       "0.1" // funding amount
     );
@@ -102,7 +102,7 @@ const CreateEventSheet = ({ isOpen, onOpenChange }) => {
     try {
       // Create contract factory
       const factory = new ethers.ContractFactory(
-        EDUCHAIN_ABI,
+        MANTLE_ABI,
         CONTRACTBYTECODE,
         signer // Make sure you have a valid signer instance
       );
@@ -110,10 +110,10 @@ const CreateEventSheet = ({ isOpen, onOpenChange }) => {
       // Deploy contract with constructor arguments
       const contract = await factory.deploy(
         USDCADDRESS,
-        EDUCHAIN_MAILBOX,
-        ethers.parseEther("100"),
+        MANTLE_MAILBOX,
         INCO_ADDRESS,
-        ethers.parseEther("20")
+        ethers.parseEther("100"),
+        // ethers.parseEther("20")
       );
 
       // Wait for deployment to complete

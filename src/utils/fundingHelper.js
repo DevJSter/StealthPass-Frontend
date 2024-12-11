@@ -6,9 +6,9 @@ const NETWORK_CONFIG = {
     rpcUrl: process.env.NEXT_PUBLIC_INCO_RPC_URL,
     name: 'INCO'
   },
-  educhain: {
-    rpcUrl: process.env.NEXT_PUBLIC_EDUCHAIN_RPC_URL,
-    name: 'EDUCHAIN'
+  mantle: {
+    rpcUrl: process.env.NEXT_PUBLIC_MANTLE_RPC_URL,
+    name: 'MANTLE'
   }
 };
 

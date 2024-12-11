@@ -1,5 +1,3 @@
-
-
 export const incoNetwork = {
   id: 21097,
   network: "Rivest",
@@ -25,27 +23,27 @@ export const incoNetwork = {
   },
 };
 
-export const eduNetwork = {
-  id: 656476,
-  network: "edu-chain-testnet",
-  name: "EDU Chain Testnet",
+export const mantleNetwork = {
+  id: 5003,
+  network: "mantle-sepolia",
+  name: "Mantle Sepolia Testnet",
   nativeCurrency: {
-    name: "EDU Chain Testnet",
-    symbol: "EDU",
+    name: "Mantle",
+    symbol: "MNT",
     decimals: 18,
   },
   rpcUrls: {
     default: {
-      http: [process.env.NEXT_PUBLIC_EDUCHAIN_RPC_URL],
+      http: ["https://rpc.sepolia.mantle.xyz"],
     },
     public: {
-      http: [process.env.NEXT_PUBLIC_EDUCHAIN_RPC_URL],
+      http: ["https://rpc.sepolia.mantle.xyz"],
     },
   },
   blockExplorers: {
     default: {
-      name: "EDUChain Explorer",
-      url: "https://edu-chain-testnet.blockscout.com",
+      name: "Explorer",
+      url: "https://explorer.sepolia.mantle.xyz",
     },
   },
   testnet: true,
@@ -53,5 +51,5 @@ export const eduNetwork = {
 
 export const networks = {
   inco: incoNetwork,
-  educhain: eduNetwork,
+  mantleNetwork: mantleNetwork,
 };

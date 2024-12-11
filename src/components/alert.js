@@ -25,8 +25,8 @@ import { ethers } from "ethers";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import {
-  EDUCHAIN_ABI,
-  EDUCHAIN_EVENT_CONTRACT,
+  MANTLE_ABI,
+  MANTLE_EVENT_CONTRACT,
   INCO_ADDRESS,
   DUMMYABI,
 } from "@/utils/contracts";
@@ -50,17 +50,17 @@ const TicketPurchaseDialog = ({ event, isOpen, onClose, onPurchase }) => {
   const { signer, address } = useWalletContext();
   const { instance } = useFhevm();
 
-  // Read token ID from EDUCHAIN contract
-  const readOnEduchain = async () => {
+  // Read token ID from MANTLE contract
+  const readOnMantle = async () => {
     const bprovider = new ethers.JsonRpcProvider(
-      process.env.NEXT_PUBLIC_EDUCHAIN_RPC_URL
+      process.env.NEXT_PUBLIC_MANTLE_RPC_URL
     );
-    const educhainSepoliaEventContract = new ethers.Contract(
-      EDUCHAIN_EVENT_CONTRACT,
-      EDUCHAIN_ABI,
+    const mantleSepoliaEventContract = new ethers.Contract(
+      MANTLE_EVENT_CONTRACT,
+      MANTLE_ABI,
       bprovider
     );
-    const tokenId = await educhainSepoliaEventContract.tokenId();
+    const tokenId = await mantleSepoliaEventContract.tokenId();
     return tokenId;
   };
 
@@ -72,7 +72,7 @@ const TicketPurchaseDialog = ({ event, isOpen, onClose, onPurchase }) => {
   // Construct signer from private key
   async function constructSigner(privateKey) {
     const provider = new ethers.JsonRpcProvider(
-      process.env.NEXT_PUBLIC_EDUCHAIN_RPC_URL
+      process.env.NEXT_PUBLIC_MANTLE_RPC_URL
     );
     return new ethers.Wallet(privateKey, provider);
   }
@@ -81,7 +81,7 @@ const TicketPurchaseDialog = ({ event, isOpen, onClose, onPurchase }) => {
   const domain = {
     name: "WalletOwnershipProof",
     version: "1",
-    chainId: 656476,
+    chainId: 5003,
     verifyingContract: "0x0000000000000000000000000000000000000000",
   };
 
@@ -123,7 +123,7 @@ const TicketPurchaseDialog = ({ event, isOpen, onClose, onPurchase }) => {
 
       const fundingResult = await ensureFunding(
         address,
-        "educhain",
+        "mantle",
         "0.1",
         "0.1"
       );
@@ -134,7 +134,7 @@ const TicketPurchaseDialog = ({ event, isOpen, onClose, onPurchase }) => {
       }
 
       const eventContract = new ethers.Contract(
-        EDUCHAIN_EVENT_CONTRACT,
+        MANTLE_EVENT_CONTRACT,
         DUMMYABI,
         signer
       );
@@ -221,17 +221,17 @@ const TicketPurchaseDialog = ({ event, isOpen, onClose, onPurchase }) => {
         sign = s.signature;
       }
       
-      const fundingResult = await ensureFunding(address, "educhain", "0.1", "0.1");
+      const fundingResult = await ensureFunding(address, "mantle", "0.1", "0.1");
       if (!fundingResult.success) {
         console.error("Funding failed:", fundingResult.message);
         return;
       }
 
       isAnonymous ? await onPurchase(event, wallet) : await handleBuyTicket(event);
-      const uniqueKey = await readOnEduchain();
+      const uniqueKey = await readOnMantle();
 
       console.log('uniqueKey:', uniqueKey);
-      console.log('sign:', sign);
+      
 
       const { data } = await axios.post("/api/api/send-email", {
         to: email,
