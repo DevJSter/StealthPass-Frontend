@@ -7,10 +7,10 @@ export const networks = {
     rpcUrl: process.env.NEXT_PUBLIC_INCO_RPC_URL,
     explorer: process.env.NEXT_PUBLIC_INCO_EXPLORER
   },
-  educhain: {
-    name: 'EDUCHAIN',
-    rpcUrl: process.env.NEXT_PUBLIC_EDUCHAIN_RPC_URL,
-    explorer: process.env.NEXT_PUBLIC_EDUCHAIN_EXPLORER
+  mantle: {
+    name: 'MANTLE',
+    rpcUrl: process.env.NEXT_PUBLIC_MANTLE_RPC_URL,
+    explorer: process.env.NEXT_PUBLIC_MANTLE_EXPLORER
   }
 };
 

@@ -24,11 +24,11 @@ const HeadingWithAvatars = () => {
             className="rounded-full border-4 border-black -mr-6"
           />
           <Image
-            src="/user3.png"
+            src="/user3.svg"
             alt="Anonymous user 3"
             width={64}
             height={64}
-            className="rounded-full border-4 border-black -pr-6"
+            className="rounded-full border-4 border-black -pr-6 bg-white"
           />
           {/* <div className="w-16 h-16 rounded-full bg-black border-4 border-black flex items-center justify-center">
             <span className="text-white text-4xl">+</span>

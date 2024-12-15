@@ -26,12 +26,12 @@ import { categories } from "@/utils/categories";
 import { toast } from "sonner";
 import { Separator } from "@/components/ui/separator";
 import {
-  EDUCHAIN_ABI,
-  EDUCHAIN_EVENT_CONTRACT,
+  MANTLE_ABI,
+  MANTLE_EVENT_CONTRACT,
   DUMMYABI,
   INCO_ADDRESS,
   USDCADDRESS,
-  USDC_EDUCHAIN_ABI,
+  USDC_MANTLE_ABI,
 } from "@/utils/contracts";
 import { parseUnits } from "ethers";
 
@@ -140,7 +140,7 @@ export function EventsBentoGrid({
 
       const fundingResult = await ensureFunding(
         userAddress, // address to fund
-        "educhain", // network
+        "mantle", // network
         "0.1", // required balance
         "0.1" // funding amount
       );
@@ -152,28 +152,20 @@ export function EventsBentoGrid({
 
       // Create contract instance
       const eventContract = new ethers.Contract(
-        EDUCHAIN_EVENT_CONTRACT,
+        MANTLE_EVENT_CONTRACT,
         DUMMYABI,
         signer // Make sure you have a valid signer instance
       );
 
       const hashOfProof = await eventContract.returnByte32Hash(inputProof);
-
-      // make a server call here which sends the bytes32 unique handle and bytes inputProof 
-      try {
-        const response = await axios.post('/api/contract/interact', {
-          inputProof: inputProof
-        });
-        console.log(response);
-      } catch (error) {
-        console.log(error);
-      }
+      
       // Prepare transaction parameters
       const txParams = {
-        value: ethers.parseUnits("10", "wei")
+        value: ethers.parseUnits("100", "wei")
       };
 
       console.log('here I am')
+      console.log('hashOfProof', hashOfProof)
 
       // Call purchaseToken function
       const transaction = await eventContract.purchaseToken(
@@ -186,6 +178,15 @@ export function EventsBentoGrid({
       // Wait for transaction confirmation
       const receipt = await transaction.getTransaction();
       await receipt.wait();
+
+      try {
+        const response = await axios.post('/api/contract/interact', {
+          inputProof: inputProof
+        });
+        console.log(response);
+      } catch (error) {
+        console.log(error);
+      }
 
       console.log("Transaction successful:", receipt);
       toast.success("Transfer successful!", {
@@ -290,7 +291,7 @@ export function EventsBentoGrid({
       setMint(true);
       const fundingResult = await ensureFunding(
         userAddress, // address to fund
-        "educhain", // network
+        "mantle", // network
         "0.1", // required balance
         "0.1" // funding amount
       );
@@ -302,13 +303,13 @@ export function EventsBentoGrid({
       // Create contract instance
       const usdcContract = new ethers.Contract(
         USDCADDRESS,
-        USDC_EDUCHAIN_ABI,
+        USDC_MANTLE_ABI,
         signer // Make sure you have a valid signer instance
       );
 
       // Call the transferFromOwner function
       const transaction = await usdcContract.transferFromOwner(
-        EDUCHAIN_EVENT_CONTRACT
+        MANTLE_EVENT_CONTRACT
       );
 
       // Wait for transaction confirmation
